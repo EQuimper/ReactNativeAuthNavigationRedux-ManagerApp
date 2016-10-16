@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View } from 'react-native';
+import { Text } from 'react-native';
 import { connect } from 'react-redux';
 import { Card, CardSection, Input, Button, Spinner } from './common';
 import { emailChanged, passwordChanged, loginUser } from '../actions';
@@ -27,36 +27,37 @@ class LoginForm extends Component {
   }
   render() {
     return (
-      <View style={styles.constainerStyle}>
-        <Card>
-          <CardSection>
-            <Input
-              autoCapitalize="none"
-              label="Email"
-              placeholder="email@gmail.com"
-              onChangeText={email => this.onEmailChange(email)}
-              value={this.props.email}
-            />
-          </CardSection>
-          <CardSection>
-            <Input
-              value={this.props.password}
-              label="Password"
-              secureTextEntry
-              placeholder="password"
-              onChangeText={text => this.onPasswordChanged(text)}
-            />
-          </CardSection>
+      <Card>
+      
+        <CardSection>
+          <Input
+            autoCapitalize="none"
+            label="Email"
+            placeholder="email@gmail.com"
+            onChangeText={email => this.onEmailChange(email)}
+            value={this.props.email}
+          />
+        </CardSection>
 
-          <Text style={styles.errorTextStyle}>
-            {this.props.error}
-          </Text>
+        <CardSection>
+          <Input
+            value={this.props.password}
+            label="Password"
+            secureTextEntry
+            placeholder="password"
+            onChangeText={text => this.onPasswordChanged(text)}
+          />
+        </CardSection>
 
-          <CardSection>
-            {this.renderButton()}
-          </CardSection>
-        </Card>
-      </View>
+        <Text style={styles.errorTextStyle}>
+          {this.props.error}
+        </Text>
+
+        <CardSection>
+          {this.renderButton()}
+        </CardSection>
+
+      </Card>
     );
   }
 }
@@ -75,10 +76,6 @@ export default connect(
 )(LoginForm);
 
 const styles = {
-  constainerStyle: {
-    flex: 1,
-    justifyContent: 'center'
-  },
   errorTextStyle: {
     fontSize: 20,
     alignSelf: 'center',
