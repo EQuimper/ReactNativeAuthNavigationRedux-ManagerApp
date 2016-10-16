@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Picker, Text } from 'react-native';
-import { employeeUpdate } from '../actions';
+import { employeeUpdate, employeeCreate } from '../actions';
 import { Card, CardSection, Input, Button } from './common';
 
 const shiftArr = [
@@ -61,7 +61,15 @@ class EmployeeCreate extends Component {
         </CardSection>
 
         <CardSection>
-          <Button>Create</Button>
+          <Button
+            onPress={() => this.props.employeeCreate({
+              name,
+              phone,
+              shift: shift || 'Monday'
+            })}
+          >
+            Create
+          </Button>
         </CardSection>
 
       </Card>
@@ -78,7 +86,7 @@ export default connect(
       shift
     };
   },
-  { employeeUpdate }
+  { employeeUpdate, employeeCreate }
 )(EmployeeCreate);
 
 const styles = {
