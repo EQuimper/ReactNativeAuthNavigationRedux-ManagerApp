@@ -1,17 +1,18 @@
 import {
   EMAIL_CHANGED,
   PASSWORD_CHANGED,
-  LOGIN_USER_SUCCESS
+  LOGIN_USER_SUCCESS,
+  LOGIN_USER_FAIL
 } from '../actions/types';
 
 const INITIAL_STATE = {
   email: '',
   password: '',
-  user: null
+  user: null,
+  error: ''
 };
 
 export default (state = INITIAL_STATE, action) => {
-  console.log(action);
   switch (action.type) {
     case EMAIL_CHANGED:
       return {
@@ -26,7 +27,14 @@ export default (state = INITIAL_STATE, action) => {
     case LOGIN_USER_SUCCESS:
       return {
         ...state,
-        user: action.payload
+        user: action.payload,
+        error: ''
+      };
+    case LOGIN_USER_FAIL:
+      return {
+        ...state,
+        error: 'Authentication failed.',
+        password: ''
       };
     default:
       return state;
