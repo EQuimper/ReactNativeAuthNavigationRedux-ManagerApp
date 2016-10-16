@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View } from 'react-native';
 import { connect } from 'react-redux';
-import { Card, CardSection, Input, Button } from './common';
+import { Card, CardSection, Input, Button, Spinner } from './common';
 import { emailChanged, passwordChanged, loginUser } from '../actions';
 
 class LoginForm extends Component {
@@ -15,12 +15,23 @@ class LoginForm extends Component {
     const { email, password } = this.props;
     this.props.loginUser({ email, password });
   }
+  renderButton() {
+    if (this.props.loading) {
+      return <Spinner />;
+    }
+    return (
+      <Button onPress={() => this.loginPress()}>
+        Login
+      </Button>
+    );
+  }
   render() {
     return (
       <View style={styles.constainerStyle}>
         <Card>
           <CardSection>
             <Input
+              autoCapitalize="none"
               label="Email"
               placeholder="email@gmail.com"
               onChangeText={email => this.onEmailChange(email)}
@@ -42,9 +53,7 @@ class LoginForm extends Component {
           </Text>
 
           <CardSection>
-            <Button onPress={() => this.loginPress()}>
-              Login
-            </Button>
+            {this.renderButton()}
           </CardSection>
         </Card>
       </View>
@@ -54,11 +63,12 @@ class LoginForm extends Component {
 
 export default connect(
   state => {
-    const { email, password, error } = state.auth;
+    const { email, password, error, loading } = state.auth;
     return {
       email,
       password,
-      error
+      error,
+      loading
     };
   },
   { emailChanged, passwordChanged, loginUser }
