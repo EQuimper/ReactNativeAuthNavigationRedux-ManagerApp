@@ -28,7 +28,7 @@ class LoginForm extends Component {
   render() {
     return (
       <Card>
-      
+
         <CardSection>
           <Input
             autoCapitalize="none"
